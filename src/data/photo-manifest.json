@@ -1,0 +1,119 @@
+{
+  "boom-low-angle": {
+    "w": 2560,
+    "h": 1440,
+    "widths": [
+      480,
+      960,
+      1600,
+      2400
+    ],
+    "film": true
+  },
+  "container-lift": {
+    "w": 1440,
+    "h": 2560,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "film": true
+  },
+  "lime-crane": {
+    "w": 1440,
+    "h": 2560,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "film": true
+  },
+  "billboard-lift-wide": {
+    "w": 2560,
+    "h": 1440,
+    "widths": [
+      480,
+      960,
+      1600,
+      2400
+    ],
+    "film": true
+  },
+  "steel-truss": {
+    "w": 1440,
+    "h": 2560,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "film": true
+  },
+  "billboard-lift": {
+    "w": 2560,
+    "h": 1440,
+    "widths": [
+      480,
+      960,
+      1600,
+      2400
+    ],
+    "film": true
+  },
+  "crane-golden-hour": {
+    "w": 800,
+    "h": 450,
+    "widths": [
+      480,
+      800
+    ],
+    "film": true
+  },
+  "popup-container-lift": {
+    "w": 800,
+    "h": 450,
+    "widths": [
+      480,
+      800
+    ]
+  },
+  "popup-container-lift-wide": {
+    "w": 980,
+    "h": 350,
+    "widths": [
+      480,
+      960,
+      980
+    ]
+  },
+  "warehouse-machine-lift": {
+    "w": 980,
+    "h": 350,
+    "widths": [
+      480,
+      960,
+      980
+    ]
+  },
+  "plant-lift": {
+    "w": 600,
+    "h": 800,
+    "widths": [
+      480,
+      600
+    ]
+  },
+  "drilling-site": {
+    "w": 450,
+    "h": 800,
+    "widths": [
+      450
+    ]
+  },
+  "_logo": {
+    "w": 234,
+    "h": 239
+  }
+}

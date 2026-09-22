@@ -1,0 +1,44 @@
+@import './base.css';
+@import './chrome.css';
+@import './hero.css';
+@import './sections.css';
+@import './pages.css';
+
+/* Motion is decoration here, never meaning: with reduced motion everything is
+   simply shown, and the hero holds on its first photo. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .grain,
+  .nav,
+  .hero__loop,
+  .hero__shot img,
+  .hero__badge,
+  .hero__live::after,
+  .hero__title,
+  .hero__sub,
+  .hero__quote,
+  .hero__call,
+  .hero__strip,
+  .phero__media img,
+  .phero__eyebrow,
+  .phero__title span,
+  .phero__intro {
+    animation: none !important;
+  }
+  .hero__shot {
+    transition: none !important;
+  }
+  .js .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .rw {
+    opacity: 1 !important;
+  }
+  .ind__track {
+    transition: none;
+  }
+}

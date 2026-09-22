@@ -1,0 +1,400 @@
+/* ══════════════════════════════════════════════════════
+   HOMEPAGE HERO — the Lagoon layout in 1st Crane dress.
+   Content sits high in the frame over a slow, drifting
+   photo loop; the industries strip is pinned to the foot.
+   ══════════════════════════════════════════════════════ */
+
+.hero {
+  position: relative;
+  height: 100vh;
+  height: 100svh;
+  min-height: 620px;
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--cream);
+}
+
+/* ───────── BACKDROP ───────── */
+.hero__loop {
+  position: absolute;
+  inset: 0;
+  animation: hero-fade 1.4s var(--ease) both;
+}
+@keyframes hero-fade {
+  from {
+    opacity: 0;
+  }
+}
+.hero__shot {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+}
+.hero__shot img,
+.hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--focus, 50% 50%);
+  transform-origin: var(--focus, 50% 50%);
+}
+/* incoming photo fades in on top… */
+.hero__shot.is-on {
+  z-index: 2;
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 1.6s var(--ease);
+}
+/* …while the outgoing one stays solid underneath, then hides */
+.hero__shot.is-off {
+  z-index: 1;
+  visibility: hidden;
+  opacity: 1;
+  transition: visibility 0s linear 1.7s;
+}
+/* the drift outlasts hold + dissolve (7s + 1.7s), so it never stops on screen */
+.hero__shot.is-on img,
+.hero__shot.is-off img {
+  animation: hero-drift 9s linear both;
+}
+.hero__loop.is-paused img {
+  animation-play-state: paused;
+}
+@keyframes hero-drift {
+  from {
+    transform: scale(1.03);
+  }
+  to {
+    transform: scale(1.14) translate(var(--px, 0), var(--py, 0));
+  }
+}
+
+/* darker where the copy sits (top-centre) and under the strip */
+.hero__shade {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: radial-gradient(66% 52% at 50% 32%, rgba(11, 13, 9, 0.6) 0%, rgba(11, 13, 9, 0.24) 56%, rgba(11, 13, 9, 0) 84%),
+    linear-gradient(
+      180deg,
+      rgba(11, 13, 9, 0.6) 0%,
+      rgba(11, 13, 9, 0.08) 24%,
+      rgba(11, 13, 9, 0.08) 48%,
+      rgba(11, 13, 9, 0.52) 72%,
+      rgba(11, 13, 9, 0.9) 100%
+    );
+}
+.hero__glow {
+  position: absolute;
+  top: -14%;
+  left: 50%;
+  z-index: 3;
+  width: min(1000px, 100%);
+  height: 720px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at 50% 30%, rgba(166, 205, 69, 0.07) 0%, transparent 68%);
+  pointer-events: none;
+}
+.hero .grain {
+  z-index: 3;
+}
+
+/* ───────── CONTENT ───────── */
+.hero__inner {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+  padding: max(14vh, calc(var(--nav-h) + 36px)) 24px 0;
+  text-align: center;
+}
+.hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 22px;
+  padding: 8px 15px;
+  border: 1px solid rgba(243, 245, 238, 0.24);
+  border-radius: 999px;
+  background: rgba(243, 245, 238, 0.12);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  color: rgba(243, 245, 238, 0.94);
+  font: 500 11.5px/1.2 var(--f-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  animation: hero-rise 0.7s ease-out 0.1s both;
+}
+/* "on call" light */
+.hero__live {
+  position: relative;
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--lime);
+}
+.hero__live::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border: 1px solid var(--lime);
+  border-radius: 50%;
+  animation: hero-live 2s ease-out infinite;
+}
+@keyframes hero-live {
+  from {
+    transform: scale(0.6);
+    opacity: 0.9;
+  }
+  to {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+.hero__title {
+  margin: 0;
+  color: #fdfefa;
+  font-size: clamp(2.4rem, 5.6vw, 5rem);
+  font-weight: 700;
+  font-stretch: 106%;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  text-shadow: 0 2px 40px rgba(11, 13, 9, 0.45);
+  text-wrap: balance;
+  animation: hero-rise 0.8s ease-out 0.22s both;
+}
+.hero__title em {
+  padding-right: 0.04em;
+  color: var(--lime-lt);
+  font-style: italic;
+  letter-spacing: -0.02em;
+}
+.hero__sub {
+  max-width: 46ch;
+  margin: 20px 0 0;
+  color: rgba(243, 245, 238, 0.88);
+  font-size: clamp(16px, 1.25vw, 18px);
+  line-height: 1.6;
+  text-shadow: 0 1px 18px rgba(11, 13, 9, 0.6);
+  animation: hero-rise 0.8s ease-out 0.4s both;
+}
+
+/* the Lagoon search pill, turned into a quote box */
+.hero__quote {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: min(540px, 100%);
+  margin-top: 30px;
+  padding: 6px 6px 6px 20px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.32);
+  transition: box-shadow 0.2s var(--ease);
+  animation: hero-rise 0.8s ease-out 0.56s both;
+}
+.hero__quote:focus-within {
+  box-shadow: 0 0 0 3px rgba(166, 205, 69, 0.8), 0 20px 50px rgba(0, 0, 0, 0.32);
+}
+.hero__quote > .icon {
+  flex: none;
+  color: #7a8074;
+}
+.hero__quote input {
+  flex: 1;
+  min-width: 0;
+  padding: 12px 4px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--text);
+  font: 400 16px/1.3 var(--f-display);
+}
+.hero__quote input::placeholder {
+  color: #6f7569;
+}
+.hero__go {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 0 7px 0 20px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--cream);
+  font: 500 12px/1 var(--f-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: transform 0.2s var(--ease), background 0.3s var(--ease);
+}
+.hero__go > span {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--lime);
+  color: var(--ink);
+}
+.hero__go:hover {
+  background: #262b20;
+  transform: scale(1.03);
+}
+.hero__go:active {
+  transform: scale(0.97);
+}
+.hero__call {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  margin-top: 14px;
+  color: rgba(243, 245, 238, 0.84);
+  font: 500 12px/1 var(--f-mono);
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  text-shadow: 0 1px 12px rgba(11, 13, 9, 0.7);
+  transition: color 0.25s;
+  animation: hero-rise 0.8s ease-out 0.64s both;
+}
+.hero__call .icon {
+  color: var(--lime);
+}
+.hero__call:hover {
+  color: var(--lime-lt);
+}
+
+/* ───────── INDUSTRIES STRIP ─────────
+   Where Lagoon has "As featured in". This lists real work, not press. */
+.hero__strip {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  padding: 20px 72px max(34px, env(safe-area-inset-bottom));
+  text-align: center;
+  animation: hero-rise 0.8s ease-out 0.72s both;
+}
+.hero__strip-label {
+  margin: 0 0 14px;
+  color: rgba(243, 245, 238, 0.74);
+  font: 500 11.5px/1 var(--f-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 12px rgba(11, 13, 9, 0.6);
+}
+.hero__strip-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px 40px;
+  max-width: 920px;
+  margin: 0 auto;
+}
+.hero__strip-list li {
+  color: rgba(243, 245, 238, 0.64);
+  font-size: 21px;
+  font-weight: 600;
+  font-stretch: 112%;
+  letter-spacing: -0.01em;
+  text-shadow: 0 1px 12px rgba(11, 13, 9, 0.5);
+  transition: color 0.25s ease;
+}
+.hero__strip-list li:hover {
+  color: rgba(243, 245, 238, 0.95);
+}
+
+.hero__pause {
+  position: absolute;
+  right: var(--pad);
+  bottom: max(34px, env(safe-area-inset-bottom));
+  z-index: 11;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(243, 245, 238, 0.32);
+  border-radius: 50%;
+  background: rgba(11, 13, 9, 0.35);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  color: var(--cream);
+  transition: border-color 0.3s, color 0.3s;
+}
+.hero__pause:hover {
+  border-color: var(--lime);
+  color: var(--lime-lt);
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ───────── RESPONSIVE ───────── */
+@media (max-width: 700px) {
+  .hero__inner {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .hero__title {
+    font-size: clamp(2.2rem, 10.5vw, 3.4rem);
+  }
+  .hero__quote {
+    padding-left: 18px;
+  }
+  .hero__quote > .icon {
+    display: none;
+  }
+  .hero__go {
+    padding-left: 14px;
+    gap: 8px;
+  }
+  .hero__strip {
+    padding: 16px 20px max(26px, env(safe-area-inset-bottom));
+  }
+  .hero__strip-list {
+    gap: 4px 16px;
+  }
+  .hero__strip-list li {
+    font-size: 15px;
+  }
+  /* the strip wraps on phones, so the pause control moves up under the nav */
+  .hero__pause {
+    top: calc(var(--nav-h) + 12px);
+    right: 16px;
+    bottom: auto;
+  }
+}
+/* keeps the badge clear of the pause control in the top corner */
+@media (max-width: 480px) {
+  .hero__badge-more {
+    display: none;
+  }
+}
+@media (max-height: 560px) and (orientation: landscape) {
+  .hero {
+    min-height: 520px;
+  }
+  .hero__strip {
+    display: none;
+  }
+}
