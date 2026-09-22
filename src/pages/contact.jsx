@@ -16,6 +16,7 @@ const DETAILS = [
     text: `${SITE.address.street}, ${SITE.address.suburb}, ${SITE.address.city}, Pretoria`,
   },
   { icon: 'clock', h: 'Hours', text: `${SITE.availability}, across Southern Africa` },
+  { icon: 'instagram', h: 'Instagram', text: SITE.instagram.handle, href: SITE.instagram.href, external: true },
 ];
 
 mount(
@@ -40,7 +41,13 @@ mount(
                 </span>
                 <div>
                   <h2 className="contact__h">{d.h}</h2>
-                  {d.href ? <a href={d.href}>{d.text}</a> : <p>{d.text}</p>}
+                  {d.href ? (
+                    <a href={d.href} {...(d.external && { target: '_blank', rel: 'noopener noreferrer' })}>
+                      {d.text}
+                    </a>
+                  ) : (
+                    <p>{d.text}</p>
+                  )}
                 </div>
               </li>
             ))}

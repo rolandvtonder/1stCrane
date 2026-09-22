@@ -105,6 +105,9 @@ export default function Nav({ current }) {
           <a href={`mailto:${SITE.email}`}>
             <Icon name="mail" size={18} /> {SITE.email}
           </a>
+          <a href={SITE.instagram.href} target="_blank" rel="noopener noreferrer">
+            <Icon name="instagram" size={18} /> {SITE.instagram.handle}
+          </a>
           <p>{SITE.availability}</p>
         </div>
       </div>

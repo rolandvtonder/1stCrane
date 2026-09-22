@@ -353,6 +353,11 @@
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
+.footer__socials {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+}
 .footer__social {
   display: inline-flex;
   align-items: center;

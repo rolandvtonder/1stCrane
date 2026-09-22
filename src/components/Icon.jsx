@@ -105,6 +105,13 @@ const PATHS = {
     </>
   ),
   facebook: <path d="M14.5 8H17V4.5h-2.5A3.5 3.5 0 0 0 11 8v2.5H8.5V14H11v6.5h3.5V14H17l.5-3.5h-3V8.5a.5.5 0 0 1 .5-.5z" />,
+  instagram: (
+    <>
+      <rect x="3.5" y="3.5" width="17" height="17" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.2" cy="6.8" r="0.6" />
+    </>
+  ),
   image: (
     <>
       <rect x="3.5" y="5" width="17" height="14" rx="1.5" />

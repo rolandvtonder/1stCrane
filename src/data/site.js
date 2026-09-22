@@ -26,6 +26,7 @@ export const SITE = {
   availability: 'Cranes available 24/7',
   // Linked from the old site's footer.
   facebook: 'https://www.facebook.com/clinten.zavvy/',
+  instagram: { href: 'https://www.instagram.com/rigging2025/', handle: '@rigging2025' },
 
   /* Where the contact form sends enquiries. With no access key the form falls
      back to opening the visitor's email app with the message filled in.

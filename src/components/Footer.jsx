@@ -69,6 +69,9 @@ export default function Footer() {
           <p>
             <Icon name="clock" size={16} /> {SITE.availability}
           </p>
+          <a href={SITE.instagram.href} target="_blank" rel="noopener noreferrer">
+            <Icon name="instagram" size={16} /> {SITE.instagram.handle}
+          </a>
         </div>
       </div>
 
@@ -77,9 +80,14 @@ export default function Footer() {
           © {year} {SITE.legalName}
         </span>
         <span>Crane hire · Rigging · Transport · Centurion, Pretoria</span>
-        <a href={SITE.facebook} target="_blank" rel="noopener noreferrer" className="footer__social">
-          <Icon name="facebook" size={16} /> Facebook
-        </a>
+        <span className="footer__socials">
+          <a href={SITE.instagram.href} target="_blank" rel="noopener noreferrer" className="footer__social">
+            <Icon name="instagram" size={16} /> Instagram
+          </a>
+          <a href={SITE.facebook} target="_blank" rel="noopener noreferrer" className="footer__social">
+            <Icon name="facebook" size={16} /> Facebook
+          </a>
+        </span>
       </div>
     </footer>
   );
