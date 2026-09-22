@@ -130,6 +130,7 @@
   font: 500 11.5px/1.2 var(--f-mono);
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  white-space: nowrap;
   animation: hero-rise 0.7s ease-out 0.1s both;
 }
 /* "on call" light */
@@ -356,10 +357,20 @@
     font-size: 15px;
   }
 }
-/* keeps the badge on one line on the narrowest phones */
-@media (max-width: 360px) {
+/* phones narrower than an iPhone 15 (390px): shorter badge, tighter quote
+   button so the placeholder still fits */
+@media (max-width: 389px) {
   .hero__badge-more {
     display: none;
+  }
+  .hero__go {
+    gap: 6px;
+    padding: 0 5px 0 12px;
+    letter-spacing: 0.04em;
+  }
+  .hero__go > span {
+    width: 30px;
+    height: 30px;
   }
 }
 @media (max-height: 560px) and (orientation: landscape) {

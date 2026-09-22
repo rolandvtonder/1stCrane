@@ -403,7 +403,15 @@
 }
 
 /* ───────── LIGHTBOX ───────── */
+/* position/z-index and the :not([open]) rule only matter in browsers without
+   <dialog> (Safari < 15.4); with it, the dialog lives in the top layer */
+.lightbox:not([open]) {
+  display: none;
+}
 .lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
   width: 100vw;
   max-width: none;
   height: 100vh;

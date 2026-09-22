@@ -14,6 +14,17 @@ const SITE_URL = 'https://www.1stcrane.co.za';
    through src/url.js, which reads this. */
 const BASE = process.env.BASE_PATH || '/';
 
+/* If the site can't start in a visitor's browser (a very old phone, a
+   script blocker), #root stays empty — after 4s this shows the contact
+   details instead of a blank page. It never appears once React renders. */
+const FALLBACK_CSS = `.boot-fallback{display:none;position:fixed;inset:0;place-content:center;gap:10px;padding:24px;background:#0b0d09;color:#f3f5ee;font:16px/1.6 Arial,sans-serif;text-align:center}
+#root:empty~.boot-fallback{display:grid;opacity:0;animation:boot-fallback .4s 4s forwards}
+@keyframes boot-fallback{to{opacity:1}}
+.boot-fallback a{color:#c3e36b}`;
+const FALLBACK_HTML = `<p><strong>1st Crane Mining &amp; Transport</strong><br>Crane hire, rigging and transport in Centurion, Pretoria.</p>
+<p>This page didn’t load in your browser. Please refresh, or contact us directly:</p>
+<p><a href="tel:+27848349417">084 834 9417</a> · <a href="mailto:info@1stcranehire.co.za">info@1stcranehire.co.za</a></p>`;
+
 /** Head tags every page shares, so each HTML file only holds its own title and description. */
 function sharedHead() {
   return {
@@ -42,6 +53,8 @@ function sharedHead() {
           // italic is only downloaded where it is used (the hero's accent word)
           href: 'https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,75..125,300..800;1,75..125,300..800&family=JetBrains+Mono:wght@400;500&display=swap',
         }),
+        { tag: 'style', children: FALLBACK_CSS, injectTo: 'head' },
+        { tag: 'div', attrs: { class: 'boot-fallback' }, children: FALLBACK_HTML, injectTo: 'body' },
       ];
     },
   };

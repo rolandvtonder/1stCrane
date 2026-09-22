@@ -8,8 +8,13 @@ export function useReducedMotion() {
   useEffect(() => {
     const mq = window.matchMedia(QUERY);
     const on = () => setReduce(mq.matches);
-    mq.addEventListener('change', on);
-    return () => mq.removeEventListener('change', on);
+    // Safari before 14 only has the older addListener API
+    if (mq.addEventListener) {
+      mq.addEventListener('change', on);
+      return () => mq.removeEventListener('change', on);
+    }
+    mq.addListener(on);
+    return () => mq.removeListener(on);
   }, []);
   return reduce;
 }

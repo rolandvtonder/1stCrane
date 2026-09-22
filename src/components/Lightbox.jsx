@@ -2,6 +2,16 @@ import { useEffect, useRef } from 'react';
 import Icon from './Icon.jsx';
 import { photo } from '../data/photos.js';
 
+/* <dialog> arrived in Safari 15.4. Before that, fall back to the [open]
+   attribute and fire the close event ourselves. */
+const isOpen = (d) => d.hasAttribute('open');
+const openDialog = (d) => (typeof d.showModal === 'function' ? d.showModal() : d.setAttribute('open', ''));
+const closeDialog = (d) => {
+  if (typeof d.close === 'function') return d.close();
+  d.removeAttribute('open');
+  d.dispatchEvent(new Event('close'));
+};
+
 /**
  * Photo viewer on the native <dialog>: the browser handles the focus trap,
  * Esc to close and returning focus to the thumbnail. Arrow keys and swipes
@@ -16,11 +26,11 @@ export default function Lightbox({ items, index, onChange }) {
 
   useEffect(() => {
     const d = ref.current;
-    if (open && !d.open) {
-      d.showModal();
+    if (open && !isOpen(d)) {
+      openDialog(d);
       document.documentElement.classList.add('is-locked');
     }
-    if (!open && d.open) d.close();
+    if (!open && isOpen(d)) closeDialog(d);
   }, [open]);
 
   useEffect(() => {
@@ -42,7 +52,7 @@ export default function Lightbox({ items, index, onChange }) {
     // rules, so don't rely on it
     if (e.key === 'Escape') {
       e.preventDefault();
-      ref.current.close();
+      closeDialog(ref.current);
     }
   };
 
@@ -57,7 +67,7 @@ export default function Lightbox({ items, index, onChange }) {
       onClick={(e) => {
         // a swipe ends in a click too — only a genuine tap on the backdrop closes
         if (swiped.current) return void (swiped.current = false);
-        if (e.target === ref.current) ref.current.close();
+        if (e.target === ref.current) closeDialog(ref.current);
       }}
       onPointerDown={(e) => (swipe.current = e.clientX)}
       onPointerUp={(e) => {
@@ -81,7 +91,7 @@ export default function Lightbox({ items, index, onChange }) {
           </figcaption>
         </figure>
       )}
-      <button className="lightbox__btn lightbox__close" onClick={() => ref.current.close()} aria-label="Close">
+      <button className="lightbox__btn lightbox__close" onClick={() => closeDialog(ref.current)} aria-label="Close">
         <Icon name="close" size={22} />
       </button>
       <button className="lightbox__btn lightbox__prev" onClick={() => step(-1)} aria-label="Previous photo">

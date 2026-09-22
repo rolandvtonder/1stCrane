@@ -66,7 +66,7 @@ export function photo(name) {
     ...META[name],
     w: m.w,
     h: m.h,
-    src: url(`/photos/${name}-${m.widths.at(-1)}.webp`),
+    src: url(`/photos/${name}-${m.widths[m.widths.length - 1]}.webp`), // not .at(-1): iOS < 15.4
     srcSet: m.widths.map((w) => `${url(`/photos/${name}-${w}.webp`)} ${w}w`).join(', '),
     film: m.film ? { sm: url(`/film/${name}-sm.webp`), lg: url(`/film/${name}-lg.webp`) } : null,
   };
