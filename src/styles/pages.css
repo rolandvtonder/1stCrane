@@ -707,10 +707,8 @@
 }
 .link-btn {
   padding: 10px 0;
-  font: 500 12px/1 var(--f-mono);
-  letter-spacing: 0.08em;
+  font: 600 15px/1 var(--f-display);
   text-decoration: underline;
-  text-transform: uppercase;
   text-underline-offset: 4px;
 }
 .hp {

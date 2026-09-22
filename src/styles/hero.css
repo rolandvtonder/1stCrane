@@ -232,9 +232,8 @@
   border-radius: 999px;
   background: var(--ink);
   color: var(--cream);
-  font: 500 12px/1 var(--f-mono);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font: 600 15px/1 var(--f-display);
+  font-stretch: 104%;
   white-space: nowrap;
   transition: transform 0.2s var(--ease), background 0.3s var(--ease);
 }
@@ -366,7 +365,6 @@
   .hero__go {
     gap: 6px;
     padding: 0 5px 0 12px;
-    letter-spacing: 0.04em;
   }
   .hero__go > span {
     width: 30px;
