@@ -1,4 +1,5 @@
 import manifest from './photo-manifest.json';
+import { url } from '../url.js';
 
 /**
  * The company's own job photos (2015). Captions describe the job, never the
@@ -65,13 +66,13 @@ export function photo(name) {
     ...META[name],
     w: m.w,
     h: m.h,
-    src: `/photos/${name}-${m.widths.at(-1)}.webp`,
-    srcSet: m.widths.map((w) => `/photos/${name}-${w}.webp ${w}w`).join(', '),
-    film: m.film ? { sm: `/film/${name}-sm.webp`, lg: `/film/${name}-lg.webp` } : null,
+    src: url(`/photos/${name}-${m.widths.at(-1)}.webp`),
+    srcSet: m.widths.map((w) => `${url(`/photos/${name}-${w}.webp`)} ${w}w`).join(', '),
+    film: m.film ? { sm: url(`/film/${name}-sm.webp`), lg: url(`/film/${name}-lg.webp`) } : null,
   };
 }
 
-export const LOGO = { src: '/brand/logo.png', ...manifest._logo };
+export const LOGO = { src: url('/brand/logo.png'), ...manifest._logo };
 
 /** Gallery order: strongest frames first, alternating shapes so the grid breathes. */
 export const GALLERY = [

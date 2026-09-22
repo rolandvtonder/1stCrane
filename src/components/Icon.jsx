@@ -11,8 +11,6 @@ const PATHS = {
   close: <path d="M6 6l12 12M18 6 6 18" />,
   plus: <path d="M12 5v14M5 12h14" />,
   check: <path d="M5 12.5l4.5 4.5L19 7.5" />,
-  pause: <path d="M9 6v12M15 6v12" />,
-  play: <path d="M8 5.5v13l10.5-6.5z" />,
   phone: (
     <path d="M5.2 4h3.3l1.7 4.3-2.2 1.4a11 11 0 0 0 6.3 6.3l1.4-2.2 4.3 1.7v3.3a1.2 1.2 0 0 1-1.2 1.2C10.9 20 4 13.1 4 5.2A1.2 1.2 0 0 1 5.2 4z" />
   ),

@@ -316,28 +316,6 @@
   color: rgba(243, 245, 238, 0.95);
 }
 
-.hero__pause {
-  position: absolute;
-  right: var(--pad);
-  bottom: max(34px, env(safe-area-inset-bottom));
-  z-index: 11;
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  border: 1px solid rgba(243, 245, 238, 0.32);
-  border-radius: 50%;
-  background: rgba(11, 13, 9, 0.35);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-  color: var(--cream);
-  transition: border-color 0.3s, color 0.3s;
-}
-.hero__pause:hover {
-  border-color: var(--lime);
-  color: var(--lime-lt);
-}
-
 @keyframes hero-rise {
   from {
     opacity: 0;
@@ -377,15 +355,9 @@
   .hero__strip-list li {
     font-size: 15px;
   }
-  /* the strip wraps on phones, so the pause control moves up under the nav */
-  .hero__pause {
-    top: calc(var(--nav-h) + 12px);
-    right: 16px;
-    bottom: auto;
-  }
 }
-/* keeps the badge clear of the pause control in the top corner */
-@media (max-width: 480px) {
+/* keeps the badge on one line on the narrowest phones */
+@media (max-width: 360px) {
   .hero__badge-more {
     display: none;
   }

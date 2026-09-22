@@ -7,10 +7,11 @@
  * value picks the slice of a wide one. `drift` is where the slow push ends up.
  *
  * With real footage: put the clip in public/ (e.g. public/hero.mp4) and set
- * `video: '/hero.mp4'` — it replaces the photo loop.
+ * `video: '/hero.mp4'` — it replaces the photo loop. (Paths are relative to
+ * the site root; the base path is added for you.)
  */
 export const HERO = {
-  badge: ['Cranes on call 24/7', ' · Southern Africa'], // second part drops on narrow phones
+  badge: ['Cranes on call 24/7', ' · Southern Africa'], // second part drops on the narrowest phones
   title: { lines: ['Crane hire & rigging,', 'handled with'], accent: 'precision' },
   sub: 'Owner-run crane hire in Centurion since 2012, with certified operators and riggers for construction, mining and industry.',
   placeholder: 'What are you lifting?',

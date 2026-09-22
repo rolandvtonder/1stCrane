@@ -9,6 +9,7 @@ import { INDUSTRIES, SERVICE_CARDS } from '../../data/services.js';
 import { photo } from '../../data/photos.js';
 import { QUOTE_HREF } from '../../data/site.js';
 import { pinnedProgress, useScrollProgress } from '../../hooks/useScrollProgress.js';
+import { url } from '../../url.js';
 
 const pad = (n) => String(n).padStart(2, '0');
 
@@ -40,7 +41,7 @@ export function About() {
               We can also supply fully certified riggers and equipment. The aim is a personal, professional,
               all-round crane hire solution for whatever your lifting needs may be.
             </p>
-            <Button href="/aboutus/">About us</Button>
+            <Button href={url('/aboutus/')}>About us</Button>
           </Reveal>
         </div>
       </div>
@@ -77,7 +78,7 @@ export function Services() {
         </ul>
 
         <div className="sec__foot">
-          <Button href="/services/">All 17 services</Button>
+          <Button href={url('/services/')}>All 17 services</Button>
         </div>
       </div>
     </section>
@@ -102,7 +103,7 @@ export function Fleet() {
         <ul className="tiles">
           {FLEET.map((f, i) => (
             <Reveal as="li" key={f.id} className="tile" delay={(i % 3) * 90}>
-              <a href={`/fleet/#${f.id}`} className="tile__link">
+              <a href={url(`/fleet/#${f.id}`)} className="tile__link">
                 <div className="tile__art blueprint">
                   <MachineArt name={f.art} />
                   <span className="tile__dwg">DWG-{pad(i + 1)}</span>
@@ -124,7 +125,7 @@ export function Fleet() {
             We run Liebherr and Grove cranes, operated by skilled, certified professionals who put safety first
             on every lift.
           </RevealText>
-          <Button href="/fleet/" variant="light">
+          <Button href={url('/fleet/')} variant="light">
             Our fleet
           </Button>
         </div>
@@ -287,7 +288,7 @@ export function Projects() {
           {MOSAIC.map((m, i) => {
             const p = photo(m.name);
             return (
-              <Reveal as="a" key={m.name} href="/gallery/" className={`mosaic__item ${m.cls}`} delay={i * 80}>
+              <Reveal as="a" key={m.name} href={url('/gallery/')} className={`mosaic__item ${m.cls}`} delay={i * 80}>
                 <Photo name={m.name} sizes={m.sizes} />
                 <span className="mosaic__cap">{p.caption}</span>
               </Reveal>
@@ -295,7 +296,7 @@ export function Projects() {
           })}
         </div>
         <div className="sec__foot">
-          <Button href="/gallery/">View the gallery</Button>
+          <Button href={url('/gallery/')}>View the gallery</Button>
         </div>
       </div>
     </section>
@@ -325,7 +326,7 @@ export function SaleTeaser() {
                 {first.make} {first.model} · {first.price}
               </p>
             )}
-            <Button href="/for-sale/">Cranes for sale</Button>
+            <Button href={url('/for-sale/')}>Cranes for sale</Button>
           </Reveal>
         </div>
       </div>

@@ -3,6 +3,7 @@ import Icon from '../Icon.jsx';
 import { HERO } from '../../data/hero.js';
 import { SITE } from '../../data/site.js';
 import { useReducedMotion } from '../../hooks/useReducedMotion.js';
+import { url } from '../../url.js';
 
 /* Large stills for desktops and high-density phones; keep in step with the
    preload tags in index.html. */
@@ -22,9 +23,9 @@ function PhotoLoop({ current, previous, paused }) {
           className={`hero__shot${i === current ? ' is-on' : ''}${i === previous ? ' is-off' : ''}`}
           style={{ '--focus': s.focus, '--px': s.drift[0], '--py': s.drift[1] }}
         >
-          <source media={SMALL_SCREEN} srcSet={`/film/${s.name}-sm.webp`} />
+          <source media={SMALL_SCREEN} srcSet={url(`/film/${s.name}-sm.webp`)} />
           <img
-            src={`/film/${s.name}-lg.webp`}
+            src={url(`/film/${s.name}-lg.webp`)}
             alt=""
             decoding="async"
             fetchpriority={i === 0 ? 'high' : 'low'}
@@ -40,12 +41,11 @@ export default function Hero() {
   const videoRef = useRef(null);
   const reduce = useReducedMotion();
   const [shot, setShot] = useState({ current: 0, previous: -1 });
-  const [userPaused, setUserPaused] = useState(false);
   const [onScreen, setOnScreen] = useState(true);
-  const paused = userPaused || reduce || !onScreen;
+  const paused = reduce || !onScreen;
   const count = HERO.shots.length;
 
-  // advance the loop; stops while paused, off-screen, or with reduced motion
+  // advance the loop; stops while off-screen, and never starts with reduced motion
   useEffect(() => {
     if (paused || HERO.video) return;
     const id = setInterval(() => setShot((s) => ({ previous: s.current, current: (s.current + 1) % count })), HERO.hold);
@@ -73,8 +73,8 @@ export default function Hero() {
         <video
           ref={videoRef}
           className="hero__video"
-          src={HERO.video}
-          poster={`/film/${HERO.shots[0].name}-lg.webp`}
+          src={url(HERO.video)}
+          poster={url(`/film/${HERO.shots[0].name}-lg.webp`)}
           autoPlay={!reduce}
           muted
           loop
@@ -104,7 +104,7 @@ export default function Hero() {
 
         <p className="hero__sub">{HERO.sub}</p>
 
-        <form className="hero__quote" action="/contact-us/#enquiry" method="get">
+        <form className="hero__quote" action={url('/contact-us/#enquiry')} method="get">
           <label htmlFor="hero-job" className="sr-only">
             What do you need lifted?
           </label>
@@ -132,17 +132,6 @@ export default function Hero() {
           ))}
         </ul>
       </div>
-
-      {!reduce && (
-        <button
-          className="hero__pause"
-          onClick={() => setUserPaused((p) => !p)}
-          aria-label="Pause background motion"
-          aria-pressed={userPaused}
-        >
-          <Icon name={userPaused ? 'play' : 'pause'} size={16} />
-        </button>
-      )}
     </section>
   );
 }

@@ -9,6 +9,11 @@ const pages = ['aboutus', 'services', 'fleet', 'for-sale', 'gallery', 'contact-u
 
 const SITE_URL = 'https://www.1stcrane.co.za';
 
+/* Where the site is served from. '/' on its own domain; the GitHub Pages
+   workflow builds with BASE_PATH=/1stCrane/. Every link in the code goes
+   through src/url.js, which reads this. */
+const BASE = process.env.BASE_PATH || '/';
+
 /** Head tags every page shares, so each HTML file only holds its own title and description. */
 function sharedHead() {
   return {
@@ -27,9 +32,9 @@ function sharedHead() {
         meta({ property: 'og:image:width', content: '1200' }),
         meta({ property: 'og:image:height', content: '630' }),
         meta({ name: 'twitter:card', content: 'summary_large_image' }),
-        link({ rel: 'icon', type: 'image/png', sizes: '32x32', href: '/brand/favicon-32.png' }),
-        link({ rel: 'icon', type: 'image/png', sizes: '192x192', href: '/brand/icon-192.png' }),
-        link({ rel: 'apple-touch-icon', href: '/brand/apple-touch-icon.png' }),
+        link({ rel: 'icon', type: 'image/png', sizes: '32x32', href: `${BASE}brand/favicon-32.png` }),
+        link({ rel: 'icon', type: 'image/png', sizes: '192x192', href: `${BASE}brand/icon-192.png` }),
+        link({ rel: 'apple-touch-icon', href: `${BASE}brand/apple-touch-icon.png` }),
         link({ rel: 'preconnect', href: 'https://fonts.googleapis.com' }),
         link({ rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }),
         link({
@@ -45,7 +50,7 @@ function sharedHead() {
 export default defineConfig({
   plugins: [react(), sharedHead()],
   appType: 'mpa',
-  base: '/',
+  base: BASE,
   build: {
     assetsInlineLimit: 0, // never inline photos or film stills
     rollupOptions: {

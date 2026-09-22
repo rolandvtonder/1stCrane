@@ -3,6 +3,7 @@ import Icon from './Icon.jsx';
 import { Logo } from './ui.jsx';
 import { NAV, QUOTE_HREF, SITE } from '../data/site.js';
 import { useScrolled } from '../hooks/useInView.js';
+import { url } from '../url.js';
 
 /**
  * Fixed top bar. Transparent over the dark page heroes, then a smoked-glass
@@ -46,7 +47,7 @@ export default function Nav({ current }) {
   return (
     <>
       <header className={`nav${stuck || open ? ' nav--stuck' : ''}`}>
-        <a className="nav__home" href="/" aria-label="1st Crane Mining & Transport, home">
+        <a className="nav__home" href={url('/')} aria-label="1st Crane Mining & Transport, home">
           <Logo height={52} eager />
         </a>
 
@@ -88,7 +89,7 @@ export default function Nav({ current }) {
         aria-hidden={open ? undefined : 'true'}
       >
         <nav className="drawer__links" aria-label="Main">
-          <a href="/" aria-current={current === 'home' ? 'page' : undefined}>
+          <a href={url('/')} aria-current={current === 'home' ? 'page' : undefined}>
             Home
           </a>
           {NAV.map((l) => (

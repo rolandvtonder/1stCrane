@@ -1,6 +1,7 @@
 import Icon from './Icon.jsx';
 import { Button, Logo } from './ui.jsx';
 import { NAV, QUOTE_HREF, SITE } from '../data/site.js';
+import { url } from '../url.js';
 
 const SERVICE_LINKS = [
   'Crane hire',
@@ -29,7 +30,7 @@ export default function Footer() {
 
         <nav className="footer__col" aria-label="Footer">
           <h2 className="footer__h">Explore</h2>
-          <a href="/">Home</a>
+          <a href={url('/')}>Home</a>
           {NAV.map((l) => (
             <a key={l.id} href={l.href}>
               {l.label}
@@ -40,7 +41,7 @@ export default function Footer() {
         <div className="footer__col">
           <h2 className="footer__h">Services</h2>
           {SERVICE_LINKS.map((s) => (
-            <a key={s} href="/services/">
+            <a key={s} href={url('/services/')}>
               {s}
             </a>
           ))}

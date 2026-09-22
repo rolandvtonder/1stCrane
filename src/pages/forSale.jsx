@@ -6,6 +6,7 @@ import Icon from '../components/Icon.jsx';
 import MachineArt from '../components/MachineArt.jsx';
 import { Button, Photo, Reveal, RevealText, SectionTag } from '../components/ui.jsx';
 import { BUYING, LISTINGS } from '../data/forSale.js';
+import { url } from '../url.js';
 
 function Listing({ item }) {
   const name = `${item.make} ${item.model}`;
@@ -40,7 +41,7 @@ function Listing({ item }) {
         </dl>
         <div className="listing__foot">
           <p className="listing__price">{item.price}</p>
-          <Button href={`/contact-us/?interest=${encodeURIComponent(name)}#enquiry`}>Enquire</Button>
+          <Button href={url(`/contact-us/?interest=${encodeURIComponent(name)}#enquiry`)}>Enquire</Button>
         </div>
       </div>
     </Reveal>

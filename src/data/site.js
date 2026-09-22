@@ -1,3 +1,5 @@
+import { url } from '../url.js';
+
 /**
  * Company details, in one place. Everything here comes from the previous
  * 1stcrane.co.za site; change it here and every page follows.
@@ -36,15 +38,15 @@ export const SITE = {
 };
 
 export const NAV = [
-  { id: 'about', href: '/aboutus/', label: 'About' },
-  { id: 'services', href: '/services/', label: 'Services' },
-  { id: 'fleet', href: '/fleet/', label: 'Fleet' },
-  { id: 'for-sale', href: '/for-sale/', label: 'For sale' },
-  { id: 'gallery', href: '/gallery/', label: 'Gallery' },
-  { id: 'contact', href: '/contact-us/', label: 'Contact' },
+  { id: 'about', href: url('/aboutus/'), label: 'About' },
+  { id: 'services', href: url('/services/'), label: 'Services' },
+  { id: 'fleet', href: url('/fleet/'), label: 'Fleet' },
+  { id: 'for-sale', href: url('/for-sale/'), label: 'For sale' },
+  { id: 'gallery', href: url('/gallery/'), label: 'Gallery' },
+  { id: 'contact', href: url('/contact-us/'), label: 'Contact' },
 ];
 
-export const QUOTE_HREF = '/contact-us/';
+export const QUOTE_HREF = url('/contact-us/');
 
 /** Facts used by the stat rows. No numbers here that the old site didn't state. */
 export const STATS = [

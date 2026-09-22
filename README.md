@@ -13,7 +13,9 @@ npm run preview    # serve dist/ locally
 
 ## Put it online
 
-Upload the contents of `dist/` to any static host (Netlify, Vercel, Cloudflare Pages, or cPanel `public_html`). Serve it over HTTPS at `www.1stcrane.co.za`.
+**GitHub Pages (preview):** every push to `main` builds the site and publishes it to https://rolandvtonder.github.io/1stCrane/ via `.github/workflows/deploy.yml`. One-time setup: repo **Settings → Pages → Source: GitHub Actions**. Pages serves the site from `/1stCrane/`, so the workflow builds with `BASE_PATH=/1stCrane/`. All links go through `src/url.js`, which adds it.
+
+**Your own domain:** run `npm run build` (base `/`) and upload the contents of `dist/` to any static host (Netlify, Vercel, Cloudflare Pages, or cPanel `public_html`). Serve it over HTTPS at `www.1stcrane.co.za`.
 
 Old WordPress addresses that no longer exist redirect in the browser already. If your host supports server redirects, add these as 301s as well — it's better for Google:
 
@@ -46,4 +48,4 @@ Originals live in `media/source/` and are never changed. `npm run photos` grades
 
 ## Swap in real footage
 
-The hero currently loops graded photos. With a landscape clip of a crane at work (8–15 seconds, 1080p, muted, ideally under 8 MB), save it as `public/hero.mp4` and set `video: '/hero.mp4'` in `src/data/hero.js`. It plays muted on a loop, and the pause button and reduced-motion handling still apply.
+The hero currently loops graded photos. With a landscape clip of a crane at work (8–15 seconds, 1080p, muted, ideally under 8 MB), save it as `public/hero.mp4` and set `video: '/hero.mp4'` in `src/data/hero.js`. It plays muted on a loop, pauses when scrolled out of view, and shows a still frame to visitors who have reduced motion turned on.
