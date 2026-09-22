@@ -16,6 +16,7 @@ import { mkdir, rm, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
 import { FILM, PHOTO, grade } from './lib/grade.mjs';
+import { cutOutOnBlack } from './lib/logo.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 const at = (p) => root + p;
@@ -37,6 +38,9 @@ const SOURCES = [
 ];
 
 const PHOTO_WIDTHS = [480, 960, 1600, 2400];
+
+/** The logo artwork: lime crane and white "1st" on solid black. */
+const LOGO_SOURCE = 'media/logo 1.jpeg';
 const FILM_SMALL_EDGE = 1280; // long edge of the -sm film still
 
 async function gradedBuffer(file, rotate, look) {
@@ -90,25 +94,40 @@ async function main() {
     console.log(`  ${src.name.padEnd(28)} ${w}×${h}  [${widths.join(', ')}]${src.film ? '  + film' : ''}`);
   }
 
-  // Brand. The old site's logo file is the same artwork as media/logo.png with
-  // a transparent background, so it sits on both the dark and light sections.
-  const logo = sharp(at('media/brand/logo-transparent.png')).trim({ threshold: 1 });
-  const logoInfo = await logo.clone().png().toFile(at('public/brand/logo.png'));
+  // Brand. The logo is drawn on solid black; cut it out so it sits cleanly
+  // over the hero photo and the dark bars (see scripts/lib/logo.mjs).
+  const logo = await cutOutOnBlack(at(LOGO_SOURCE));
+  const logoInfo = await sharp(logo.buffer)
+    .resize({ height: 360 }) // nav (≤60px) and footer (120px) at 2× and 3× density
+    .png({ palette: true, quality: 95, effort: 10 })
+    .toFile(at('public/brand/logo.png'));
   manifest._logo = { w: logoInfo.width, h: logoInfo.height };
-  await sharp(at('media/brand/icon-192.png')).resize(180).png().toFile(at('public/brand/apple-touch-icon.png'));
-  await sharp(at('media/brand/icon-192.png')).png().toFile(at('public/brand/icon-192.png'));
-  await sharp(at('media/brand/icon-32.png')).png().toFile(at('public/brand/favicon-32.png'));
+
+  // Icons keep the black background (iOS fills transparency with black anyway),
+  // cropped square around the drawing so it reads at 32px.
+  const side = Math.max(logo.box.width, logo.box.height);
+  const icon = await sharp(at(LOGO_SOURCE))
+    .extract({
+      left: Math.max(0, Math.round(logo.box.left + logo.box.width / 2 - side / 2)),
+      top: Math.max(0, Math.round(logo.box.top + logo.box.height / 2 - side / 2)),
+      width: side,
+      height: side,
+    })
+    .toBuffer();
+  await sharp(icon).resize(180).png().toFile(at('public/brand/apple-touch-icon.png'));
+  await sharp(icon).resize(192).png().toFile(at('public/brand/icon-192.png'));
+  await sharp(icon).resize(32, 32, { kernel: 'lanczos3' }).png().toFile(at('public/brand/favicon-32.png'));
 
   // Social share image: a dusk still with the logo on a dark band.
-  const og = await sharp(at('public/film/boom-low-angle-lg.webp'))
-    .resize(1200, 630, { fit: 'cover', position: 'right' })
+  const og = await sharp(at('public/film/lime-crane-lg.webp'))
+    .resize(1200, 630, { fit: 'cover', position: 'top' })
     .toBuffer();
   const band = Buffer.from(
     `<svg width="1200" height="630"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#0B0D09" stop-opacity=".92"/><stop offset=".55" stop-color="#0B0D09" stop-opacity=".35"/><stop offset="1" stop-color="#0B0D09" stop-opacity="0"/></linearGradient></defs><rect width="1200" height="630" fill="url(#g)"/></svg>`
   );
-  const ogLogo = await sharp(at('public/brand/logo.png')).resize({ height: 300 }).toBuffer();
+  const ogLogo = await sharp(logo.buffer).resize({ height: 380 }).toBuffer();
   await sharp(og)
-    .composite([{ input: band }, { input: ogLogo, left: 80, top: 165 }])
+    .composite([{ input: band }, { input: ogLogo, left: 90, top: 125 }])
     .jpeg({ quality: 84 })
     .toFile(at('public/brand/og-image.jpg'));
 

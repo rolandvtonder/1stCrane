@@ -44,7 +44,7 @@ The homepage quote box ("What are you lifting?") opens this form with the visito
 
 ## Photos
 
-Originals live in `media/source/` and are never changed. `npm run photos` grades and resizes them into `public/photos/` and `public/film/`. To add a photo, put the JPG in `media/source/`, add a line to `SOURCES` in `scripts/prepare-photos.mjs`, run `npm run photos`, then add a caption in `src/data/photos.js`.
+Originals live in `media/source/` and are never changed. `npm run photos` grades and resizes them into `public/photos/` and `public/film/`. It also builds the logo, favicons and social-share image from `media/logo 1.jpeg`, cutting the logo out of its black background. To change the logo, replace that file (same name) and run it again. To add a photo, put the JPG in `media/source/`, add a line to `SOURCES` in `scripts/prepare-photos.mjs`, run `npm run photos`, then add a caption in `src/data/photos.js`.
 
 ## Swap in real footage
 
